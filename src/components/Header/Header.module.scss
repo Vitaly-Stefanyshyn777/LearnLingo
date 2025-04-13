@@ -1,0 +1,107 @@
+.header {
+  max-width: 1440px;
+  min-width: 1200px;
+   height: 48px;
+   margin: 0px;
+    padding: 20px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+   background-color: white;
+ 
+  
+    
+  }
+  
+
+  .logoContainer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-grow: 1; 
+  }
+  
+  .navLink {
+    font-size: 16px;
+    font-weight: 400px;
+    line-height: 20px;
+    color: #121417;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .navLink:hover {
+    color: #F4C550;
+    ;
+  }
+  
+  
+  .buttonContainer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .logoutButton {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 500;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #121417;
+    transition: color 0.3s;
+  }
+  
+  .loginButton {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 700px;
+    line-height: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #121417;
+    transition: color 0.3s;
+  }
+  .logoutButton:hover {
+    color: #F4C550;
+  
+  } 
+  .loginButton:hover {
+    color: #F4C550;
+  
+  }
+  
+ 
+  .icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+  }
+  
+ 
+  .registerButton {
+    background-color: black;
+    color: white;
+    font-size: 16px;
+    font-weight: 700px;
+    line-height: 20px;
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .registerButton:hover {
+    background-color: #F4C550;
+    ;
+  }
+  

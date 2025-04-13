@@ -1,0 +1,22 @@
+.logoContainer {
+	display: flex;
+	align-items: center;
+	gap: 8px; 
+	text-decoration: none;
+  }
+  
+  .logoImage {
+	width: 28px;
+	height: 28px;
+	object-fit: contain;
+  }
+  
+  .logoText {
+	font-family: "Roboto", sans-serif;
+	font-size: 20px;
+	font-weight: 500;
+	line-height: 24px;
+	letter-spacing: -0.02em;
+	color: #121417;
+  }
+  

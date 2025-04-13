@@ -1,0 +1,36 @@
+.container {
+  max-width: 1440px;
+  min-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Додано */
+  background: rgb(246, 245, 244);
+}
+
+  
+  .loadMore {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #f4c550;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .loadMore:hover {
+    background-color: #e0b240;
+  }
+  
+  .loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    min-height: 100px; /* Щоб не було стрибків */
+  }
+  
+  

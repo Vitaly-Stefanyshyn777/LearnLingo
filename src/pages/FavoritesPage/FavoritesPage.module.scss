@@ -1,0 +1,26 @@
+.page {
+  max-width: 1440px;
+  min-width: 1200px;
+  min-height: 80px;
+  background: rgb(246, 245, 244);
+
+}
+.header {
+
+ 
+  height: 48px;
+  padding: 20px 128px;
+  background-color: white;
+}
+
+
+.content {
+  min-height: 100vh;
+  max-width: 1440px;
+  min-width: 1200px;
+  
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

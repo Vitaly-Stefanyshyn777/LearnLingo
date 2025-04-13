@@ -1,0 +1,69 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  
+  }
+  
+ 
+  .left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 160px;
+    padding-left: 25px; 
+  }
+  
+  .languagesTitle {
+    font-size: 16px;
+    font-weight: 500px;
+    line-height: 24px;
+    color: #8a8a89;
+    margin-bottom: 2px;
+  }
+  
+  .name {
+    font-size: 24px;
+    font-weight: 500px;
+    line-height: 24px;
+   color: #121417;
+  }
+  
+  .languages {
+    font-size: 14px;
+    color: #5a5a5a;
+  }
+  
+
+  .right {
+    flex: 1; 
+  }
+  
+  .infoBlock {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .text {
+    font-size: 16px;
+    font-weight: 500px;
+    line-height: 24px;
+    color: #121417;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  .divider {
+    width: 1px;
+    height: 16px;
+    background-color: #ccc;
+  }
+  
+  .price span {
+    font-weight: bold;
+    color: green;
+  }
+  

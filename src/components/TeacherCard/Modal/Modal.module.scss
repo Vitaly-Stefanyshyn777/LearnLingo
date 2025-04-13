@@ -1,0 +1,163 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    gap: 20px;
+    
+  }
+  input::placeholder {
+    font-weight: 400px;
+    font-size: 16px;
+    line-height: 22px;
+    color: #121417;
+  }
+  
+  .modal {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    width: 400px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+   max-width: 600px;
+    max-height: 972px;
+    
+  }
+  
+  .closeButton {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+  }
+  
+  .teacherInfo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .avatar {
+    margin-top: 20px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .teacherLabel {
+    margin-top: 20px;
+    font-size: 12px;
+    font-weight: 500px;
+    line-height: 16px;
+    color: #8A8A89;
+  }
+  .teacherLabelname {
+    font-size: 16px;
+    font-weight: 500px;
+    line-height: 24px;
+    color: #121417;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .labelForm {
+
+    font-weight: 500px !important;
+      font-size: 24px !important;
+      line-height: 32px !important;
+      color: #121417;
+  }
+
+  .teacherTitile {
+    font-weight: 500px;
+    font-size: 40px;
+    line-height: 48px;
+    color: #121417;
+  }
+
+  .teacherTitileP {
+    font-weight: 400px;
+    font-size: 16px;
+    line-height: 22px;
+    color: #121417;
+  }
+  
+  
+  .radioGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+      font-weight: 400px;
+      font-size: 16px;
+      line-height: 22px;
+      color: #121417;
+    
+  }
+  
+  .radioLabel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+  }
+  
+  .input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .bookButton {
+    background-color: #f4c550;
+    border: none;
+    color: #121417;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .bookButton:hover {
+    background-color: #f4c550;
+  }
+  
+  input[type="radio"] {
+    appearance: none; 
+    width: 20px;
+    height: 20px;
+    border: 1px solid #121417;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  
+    &:checked {
+      background-color: #f4c550; 
+      border: 2px solid #f4c550; 
+    }
+  }

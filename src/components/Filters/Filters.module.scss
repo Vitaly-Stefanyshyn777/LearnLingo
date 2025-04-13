@@ -1,0 +1,16 @@
+.filters {
+  max-width: 1440px;
+  min-width: 1200px;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding-left: 128px;
+  padding-top: 32px;
+  padding-bottom: 32px;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 18px;
+    font-weight: 500px;
+    line-height: 20px;
+  background: rgb(246, 245, 244);
+}

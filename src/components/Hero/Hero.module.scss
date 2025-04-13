@@ -1,0 +1,85 @@
+.hero {
+  
+  // margin: 0px 64px;
+  // display: flex;
+  // align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  // height: 530px;
+
+  margin: 0 auto; /* Центрування */
+ padding-bottom: 20px;
+  display: flex;
+  align-items: center;
+padding-left: 64px;
+padding-right: 64px;
+
+ 
+
+ 
+}
+
+.content {
+ padding: 0px 60px;
+  height: 530px;
+  background-color: #F8F8F8;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  gap: 20px;
+}
+
+
+.title {
+  font-size: 48px;
+  font-weight: 500px;
+  line-height: 56px;
+  color: #121417;
+  
+}
+
+.highlight {
+  font-style: italic;
+  color: #F4C550;
+
+}
+
+.description {
+  font-size: 16px;
+  font-weight: 400px;
+  line-height: 22px;
+  color: #121417;
+  margin-bottom: 24px;
+}
+
+.ctaButton {
+  background-color: #F4C550;
+  font-size: 18px;
+  font-weight: 700px;
+  line-height: 28px;
+  color: #121417;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+  display: inline-block;
+  width: 267px; 
+  height: 60px;
+}
+
+.ctaButton:hover {
+  background-color: #F4C550;
+}
+
+.imageContainer {
+  flex-shrink: 0;
+}
+
+.heroImage {
+  width: 568px;
+  height: 530px;
+  border-radius: 30px;
+}
