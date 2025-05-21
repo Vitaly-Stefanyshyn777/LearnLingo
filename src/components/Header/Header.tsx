@@ -10,12 +10,12 @@ import LoginModal from "../Modal/LoginModal/LoginModal";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-  const [modal, setModal] = useState(null);
-  const [user, setUser] = useState(null);
+  const [modal, setModal] = useState(null); 
+  const [user, setUser] = useState(null); 
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      setUser(authUser);
+      setUser(authUser); 
     });
 
     return () => unsubscribe();
@@ -32,8 +32,7 @@ const Header = () => {
     return () => window.removeEventListener("keydown", handleEscape);
   }, [modal]);
 
-  const toggleModal = (type) =>
-    setModal((prev) => (prev === type ? null : type));
+  const toggleModal = (type) => setModal((prev) => (prev === type ? null : type));
 
   const handleLogout = async () => {
     try {
@@ -50,48 +49,37 @@ const Header = () => {
       </div>
 
       <nav className={styles.nav}>
-        <Link to="/" className={styles.navLink}>
-          Home
-        </Link>
-        <Link to="/teachers" className={styles.navLink}>
-          Teachers
-        </Link>
-        {user && (
-          <Link to="/favorites" className={styles.navLink}>
-            Favorites
-          </Link>
-        )}
-      </nav>
+  <Link to="/" className={styles.navLink}>Home</Link>
+  <Link to="/teachers" className={styles.navLink}>Teachers</Link>
+  {user && ( 
+    <Link to="/favorites" className={styles.navLink}>Favorites</Link>
+  )}
+</nav>
 
       <div className={styles.buttonContainer}>
         {user ? (
+          
           <button className={styles.logoutButton} onClick={handleLogout}>
-            <img
-              src={logInIcon1x}
-              srcSet={`${logInIcon1x} 1x, ${logInIcon2x} 2x`}
-              alt="Log in"
-              className={styles.icon}
-            />
+            <img 
+                src={logInIcon1x} 
+                srcSet={`${logInIcon1x} 1x, ${logInIcon2x} 2x`} 
+                alt="Log in" 
+                className={styles.icon} 
+              />
             Log out
           </button>
         ) : (
           <>
-            <button
-              className={styles.loginButton}
-              onClick={() => toggleModal("login")}
-            >
-              <img
-                src={logInIcon1x}
-                srcSet={`${logInIcon1x} 1x, ${logInIcon2x} 2x`}
-                alt="Log in"
-                className={styles.icon}
+            <button className={styles.loginButton} onClick={() => toggleModal("login")}>
+              <img 
+                src={logInIcon1x} 
+                srcSet={`${logInIcon1x} 1x, ${logInIcon2x} 2x`} 
+                alt="Log in" 
+                className={styles.icon} 
               />
               Log in
             </button>
-            <button
-              className={styles.registerButton}
-              onClick={() => toggleModal("register")}
-            >
+            <button className={styles.registerButton} onClick={() => toggleModal("register")}>
               Registration
             </button>
           </>
@@ -99,10 +87,7 @@ const Header = () => {
       </div>
 
       <LoginModal isOpen={modal === "login"} onClose={() => setModal(null)} />
-      <RegistrationModal
-        isOpen={modal === "register"}
-        onClose={() => setModal(null)}
-      />
+      <RegistrationModal isOpen={modal === "register"} onClose={() => setModal(null)} />
     </header>
   );
 };

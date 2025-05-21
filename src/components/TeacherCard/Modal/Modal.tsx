@@ -1,6 +1,18 @@
 import styles from "./Modal.module.scss";
-// Ensure teacher.name is always string (not undefined)
-const Modal = ({ isOpen, onClose, teacher }) => {
+
+interface Teacher {
+  name: string;
+  avatar_url?: string;
+  languages?: string[];
+}
+
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  teacher: Teacher;
+}
+
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, teacher }) => {
   if (!isOpen) return null;
 
   return (

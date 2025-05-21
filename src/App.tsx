@@ -1,13 +1,19 @@
 import { Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
-import './App.scss';
+import "./App.scss";
 import HomePage from "./pages/HomePage/HomePage";
-import { addTeachersToDatabase, getTeachers } from "./services/firebase";
+import {
+  Teacher,
+  addTeachersToDatabase,
+  getTeachers,
+} from "./services/firebase";
 import TeachersPage from "./pages/TeachersPage/TeachersPage";
 import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
-import teachers from "./data/teachers.json";
+import teachersData from "./data/teachers.json";
 
-function App() {
+const teachers: Teacher[] = teachersData as Teacher[];
+
+const App: React.FC = () => {
   useEffect(() => {
     addTeachersToDatabase(teachers);
     getTeachers();
@@ -20,6 +26,6 @@ function App() {
       <Route path="/favorites" element={<FavoritesPage />} />
     </Routes>
   );
-}
+};
 
 export default App;

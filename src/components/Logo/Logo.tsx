@@ -6,12 +6,8 @@ import logo2x from "../../assets/ukraine@2x.png";
 const Logo = () => {
   return (
     <Link to="/" className={styles.logoContainer}>
-      <img
-        src={logo}
-        srcSet={`${logo} 1x, ${logo2x} 2x`}
-        alt="LearnLingo Logo"
-        className={styles.logoImage}
-      />
+      <img src={logo} 
+          srcSet={`${logo} 1x, ${logo2x} 2x`}  alt="LearnLingo Logo" className={styles.logoImage} />
       <span className={styles.logoText}>LearnLingo</span>
     </Link>
   );

@@ -3,44 +3,50 @@ import Filters from "../../components/Filters/Filters";
 import TeachersList from "../../components/TeachersList/TeachersList";
 import Header from "../../components/Header/Header";
 import styles from "./TeachersPage.module.scss";
-import { getTeachers } from "../../services/firebase";
+import { getTeachers, Teacher } from "../../services/firebase";
+
+interface Filters {
+  language: string;
+  level: string;
+  price: string;
+}
 
 const TeachersPage = () => {
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<Filters>({
     language: "French",
     level: "A1 Beginner",
     price: "30$",
   });
 
-  const [visibleCount, setVisibleCount] = useState(4);
-  const [teachers, setTeachers] = useState([]); 
-  const [isLoading, setIsLoading] = useState(true); 
-  const bottomRef = useRef(null);
+  const [visibleCount, setVisibleCount] = useState<number>(4);
+  const [teachers, setTeachers] = useState<Teacher[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const bottomRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const fetchTeachers = async () => {
       setIsLoading(true);
       try {
         const data = await getTeachers();
-        if (data.length > 0) {  
+        if (data.length > 0) {
           setTeachers(data);
         }
       } catch (error) {
         console.error("❌ Помилка отримання викладачів:", error);
       } finally {
-        setTimeout(() => setIsLoading(false), 500); 
+        setTimeout(() => setIsLoading(false), 500);
       }
     };
 
     fetchTeachers();
   }, []);
 
-  const handleFilterChange = (newFilters) => {
+  const handleFilterChange = (newFilters: Filters): void => {
     setFilters(newFilters);
     setVisibleCount(4);
   };
 
-  const handleLoadMore = () => {
+  const handleLoadMore = (): void => {
     setVisibleCount((prev) => prev + 4);
     setTimeout(() => {
       bottomRef.current?.scrollIntoView({ behavior: "smooth" });

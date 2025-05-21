@@ -11,19 +11,11 @@ import Icon2 from "../../../assets/eye-visible-outlined.svg";
 const schema = yup.object().shape({
   name: yup.string().required("Name is required"),
   email: yup.string().email("Invalid email").required("Email is required"),
-  password: yup
-    .string()
-    .min(6, "Password must be at least 6 characters")
-    .required("Password is required"),
+  password: yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
 });
 
 const RegistrationModal = ({ isOpen, onClose }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm({ resolver: yupResolver(schema) });
+  const { register, handleSubmit, formState: { errors }, reset } = useForm({ resolver: yupResolver(schema) });
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
@@ -34,6 +26,7 @@ const RegistrationModal = ({ isOpen, onClose }) => {
       }, 10);
     }
   }, [isOpen]);
+
 
   useEffect(() => {
     if (!isOpen) return;
@@ -46,10 +39,11 @@ const RegistrationModal = ({ isOpen, onClose }) => {
     return () => window.removeEventListener("keydown", handleEscape);
   }, [isOpen, onClose]);
 
+  
   const onSubmit = async (data) => {
     try {
       await registerUser(data.email, data.password);
-      reset();
+      reset(); 
       navigate("/teachers");
       onClose();
     } catch (error) {
@@ -62,32 +56,22 @@ const RegistrationModal = ({ isOpen, onClose }) => {
   return (
     <div className={styles.overlay} onClick={onClose} tabIndex={0}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-        <button className={styles.close} onClick={onClose}>
-          &times;
-        </button>
+        <button className={styles.close} onClick={onClose}>&times;</button>
         <h2 className={styles.title}>Registration</h2>
         <p className={styles.subtitle}>
-          Thank you for your interest in our platform! Please provide us with
-          the following information.
+          Thank you for your interest in our platform! Please provide us with the following information.
         </p>
+
         <form onSubmit={handleSubmit(onSubmit)}>
-          <input
-            type="text"
-            placeholder="Name"
-            {...register("name")}
-            className={styles.input}
-            autoFocus
-          />
+        
+          <input type="text" placeholder="Name" {...register("name")} className={styles.input} autoFocus />
           {errors.name && <p className={styles.error}>{errors.name.message}</p>}
-          <input
-            type="email"
-            placeholder="Email"
-            {...register("email")}
-            className={styles.input}
-          />
-          {errors.email && (
-            <p className={styles.error}>{errors.email.message}</p>
-          )}
+
+         
+          <input type="email" placeholder="Email" {...register("email")} className={styles.input} />
+          {errors.email && <p className={styles.error}>{errors.email.message}</p>}
+
+        
           <div className={styles.passwordContainer}>
             <input
               type={showPassword ? "text" : "password"}
@@ -95,22 +79,13 @@ const RegistrationModal = ({ isOpen, onClose }) => {
               {...register("password")}
               className={styles.input}
             />
-            <span
-              className={styles.eyeIcon}
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              <img
-                src={showPassword ? Icon2 : Icon1}
-                alt="Toggle password visibility"
-              />
+            <span className={styles.eyeIcon} onClick={() => setShowPassword(!showPassword)}>
+              <img src={showPassword ? Icon2 : Icon1} alt="Toggle password visibility" />
             </span>
           </div>
-          {errors.password && (
-            <p className={styles.error}>{errors.password.message}</p>
-          )}
-          <button type="submit" className={styles.button}>
-            Sign Up
-          </button>
+          {errors.password && <p className={styles.error}>{errors.password.message}</p>}
+
+          <button type="submit" className={styles.button}>Sign Up</button>
         </form>
       </div>
     </div>

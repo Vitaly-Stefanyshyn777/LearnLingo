@@ -4,12 +4,24 @@ import TeacherCardHeader from "./TeacherCardHeader/TeacherCardHeader";
 import Modal from "../TeacherCard/Modal/Modal";
 import styles from "./TeacherCard.module.scss";
 import heartIcon from "../../assets/like-heart.svg";
+import { Teacher } from "../../services/firebase";
+import { User } from "firebase/auth";
 
-const TeacherCard = ({ teacher, selectedLevel, onFavoriteUpdate }) => {
-  const [user, setUser] = useState(null);
-  const [favorite, setFavorite] = useState(false);
-  const [expanded, setExpanded] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+interface TeacherCardProps {
+  teacher: Teacher;
+  selectedLevel: string;
+  onFavoriteUpdate?: () => void;
+}
+
+const TeacherCard: React.FC<TeacherCardProps> = ({
+  teacher,
+  selectedLevel,
+  onFavoriteUpdate,
+}) => {
+  const [user, setUser] = useState<User | null>(null);
+  const [favorite, setFavorite] = useState<boolean>(false);
+  const [expanded, setExpanded] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -60,7 +72,7 @@ const TeacherCard = ({ teacher, selectedLevel, onFavoriteUpdate }) => {
             name={teacher.name || "Unknown"}
             surname={teacher.surname || ""}
             languages={teacher.languages || []}
-            lessonsDone={teacher.lessons_done || 0}
+            lessonsDone={teacher.lessons_done ?? 0}
             rating={teacher.rating || "N/A"}
             pricePerHour={teacher.price_per_hour || "N/A"}
           />
@@ -76,29 +88,57 @@ const TeacherCard = ({ teacher, selectedLevel, onFavoriteUpdate }) => {
 
       <div className={styles.details}>
         <p>
-          Speaks: <strong className={styles.underlinedText}>{Array.isArray(teacher.languages) ? teacher.languages.join(", ") : "Unknown"}</strong>
+          Speaks:{" "}
+          <strong className={styles.underlinedText}>
+            {Array.isArray(teacher.languages)
+              ? teacher.languages.join(", ")
+              : "Unknown"}
+          </strong>
         </p>
         <p>
-          Lesson Info: <strong className={styles.underlinedTextet}>{teacher.lesson_info || "No info available"}</strong>
+          Lesson Info:{" "}
+          <strong className={styles.underlinedTextet}>
+            {teacher.lesson_info || "No info available"}
+          </strong>
         </p>
         <p>
-          Conditions: <strong className={styles.underlinedTextet}>{Array.isArray(teacher.conditions) ? teacher.conditions.join(" ") : "No conditions provided"}</strong>
+          Conditions:{" "}
+          <strong className={styles.underlinedTextet}>
+            {Array.isArray(teacher.conditions)
+              ? teacher.conditions.join(" ")
+              : "No conditions provided"}
+          </strong>
         </p>
-        <button className={styles.readMore} onClick={() => setExpanded((prev) => !prev)}>
+        <button
+          className={styles.readMore}
+          onClick={() => setExpanded((prev) => !prev)}
+        >
           {expanded ? "" : "Read more"}
         </button>
 
         {expanded && (
           <div className={styles.extraDetails}>
-            <p className={styles.extraDetailsis}>{teacher.experience ? (Array.isArray(teacher.experience) ? teacher.experience.join(" ") : teacher.experience) : "No experience provided"}</p>
+            <p className={styles.extraDetailsis}>
+              {teacher.experience
+                ? Array.isArray(teacher.experience)
+                  ? teacher.experience.join(" ")
+                  : teacher.experience
+                : "No experience provided"}
+            </p>
 
             <div className={styles.reviews}>
               {teacher.reviews && teacher.reviews.length > 0 ? (
                 teacher.reviews.map((review, index) => (
                   <div key={index} className={styles.review}>
-                    <p className={styles.reviewName}><strong>{review.reviewer_name}</strong></p>
-                    <p className={styles.reviewRating}>⭐ {review.reviewer_rating}</p>
-                    <p className={styles.reviewText}><strong>{review.comment}</strong></p>
+                    <p className={styles.reviewName}>
+                      <strong>{review.reviewer_name}</strong>
+                    </p>
+                    <p className={styles.reviewRating}>
+                      ⭐ {review.reviewer_rating}
+                    </p>
+                    <p className={styles.reviewText}>
+                      <strong>{review.comment}</strong>
+                    </p>
                   </div>
                 ))
               ) : (
@@ -109,10 +149,15 @@ const TeacherCard = ({ teacher, selectedLevel, onFavoriteUpdate }) => {
         )}
 
         <div className={styles.levels}>
-          {teacher.levels?.length > 0 ? (
+          {Array.isArray(teacher.levels) && teacher.levels.length > 0 ? (
             teacher.levels.map((level, index) => (
-              <span key={index} className={`${styles.level} ${selectedLevel === level ? styles.selectedLevel : ""}`}>
-                 {`#${level}`}
+              <span
+                key={index}
+                className={`${styles.level} ${
+                  selectedLevel === level ? styles.selectedLevel : ""
+                }`}
+              >
+                {`#${level}`}
               </span>
             ))
           ) : (

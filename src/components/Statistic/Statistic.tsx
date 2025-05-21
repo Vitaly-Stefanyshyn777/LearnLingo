@@ -1,6 +1,6 @@
 import styles from "./Statistic.module.scss";
 
-const Statistic = () => {
+const Statistic: React.FC = () => {
   return (
     <div className={styles.statisticWrapper}>
       <div className={styles.statisticContainer}>

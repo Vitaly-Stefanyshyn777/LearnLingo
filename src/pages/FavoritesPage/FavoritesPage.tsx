@@ -1,12 +1,15 @@
 import { useState, useEffect, useCallback } from "react";
+import { User } from "firebase/auth";
 import { auth, getFavoriteTeachers } from "../../services/firebase";
 import TeacherCard from "../../components/TeacherCard/TeacherCard";
 import Header from "../../components/Header/Header";
 import styles from "./FavoritesPage.module.scss";
 
-const FavoritesPage = () => {
-  const [user, setUser] = useState(null);
-  const [favoriteTeachers, setFavoriteTeachers] = useState([]);
+import { Teacher } from "../../services/firebase";
+
+const FavoritesPage: React.FC = () => {
+  const [user, setUser] = useState<User | null>(null);
+  const [favoriteTeachers, setFavoriteTeachers] = useState<Teacher[]>([]);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -16,15 +19,15 @@ const FavoritesPage = () => {
     return () => unsubscribe();
   }, []);
 
-  
-  const fetchFavorites = useCallback(async () => {
+  const fetchFavorites = useCallback(async (): Promise<void> => {
     if (!user) return;
-    
+
     try {
       const favorites = await getFavoriteTeachers(user.uid);
 
-      const updatedFavorites = favorites.map((teacher) => ({
+      const updatedFavorites: Teacher[] = favorites.map((teacher) => ({
         ...teacher,
+        id: teacher.id || crypto.randomUUID(),
         experience: Array.isArray(teacher.experience)
           ? teacher.experience.join(" ")
           : teacher.experience || "No experience provided",
@@ -36,25 +39,26 @@ const FavoritesPage = () => {
     }
   }, [user]);
 
-  
   useEffect(() => {
     fetchFavorites();
   }, [fetchFavorites]);
 
-  
-  const handleFavoriteUpdate = async () => {
+  const handleFavoriteUpdate = async (): Promise<void> => {
     await fetchFavorites();
   };
 
   return (
     <div className={styles.page}>
-      <Header className={styles.header} /> 
+      <div className={styles.header}>
+        <Header />
+      </div>
       <div className={styles.content}>
         {favoriteTeachers.length > 0 ? (
           favoriteTeachers.map((teacher) => (
             <TeacherCard
               key={teacher.id}
               teacher={teacher}
+              selectedLevel=""
               onFavoriteUpdate={handleFavoriteUpdate}
             />
           ))

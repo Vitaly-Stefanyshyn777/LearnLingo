@@ -2,6 +2,26 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getDatabase, ref, set, get, update, remove } from "firebase/database";
 
+export interface Teacher {
+  id?: string;
+  name: string;
+  surname?: string;
+  avatar_url?: string;
+  languages?: string[];
+  levels?: string[];
+  price_per_hour?: number | string;
+  rating?: number | string;
+  lesson_info?: string;
+  experience?: string | string[];
+  conditions?: string[];
+  lessons_done?: number;
+  reviews?: {
+    reviewer_name: string;
+    reviewer_rating: number;
+    comment: string;
+  }[];
+}
+
 // 🔹 Firebase конфігурація
 const firebaseConfig = {
   apiKey: "AIzaSyCxPfvb-4sRst0qGBJ10QNX7rl4hDV-kas",
@@ -21,15 +41,15 @@ export const db = getDatabase(app);
 
 /**
  * 🔹 Додає викладачів у базу
- * @param {Array} teachers - Масив об'єктів викладачів
  */
-export const addTeachersToDatabase = async (teachers) => {
-  const updates = {};
+export const addTeachersToDatabase = async (
+  teachers: Teacher[]
+): Promise<void> => {
+  const updates: Record<string, any> = {};
   teachers.forEach((teacher) => {
     const id = teacher.id || crypto.randomUUID();
     updates[`teachers/${id}`] = { ...teacher, id };
   });
-
   try {
     await update(ref(db), updates);
   } catch (error) {
@@ -39,15 +59,17 @@ export const addTeachersToDatabase = async (teachers) => {
 
 /**
  * 🔹 Отримує список викладачів із Firebase
- * @returns {Promise<Array>} Масив викладачів
  */
-export const getTeachers = async () => {
+export const getTeachers = async (): Promise<Teacher[]> => {
   try {
     const snapshot = await get(ref(db, "teachers"));
     if (!snapshot.exists()) {
       return [];
     }
-    return Object.entries(snapshot.val()).map(([id, teacher]) => ({ id, ...teacher }));
+    // id is string, teacher is any
+    return Object.entries(snapshot.val()).map(
+      ([id, teacher]: [string, any]) => ({ id, ...teacher })
+    );
   } catch (error) {
     return [];
   }
@@ -55,16 +77,15 @@ export const getTeachers = async () => {
 
 /**
  * 🔹 Перемикає стан "обраного" викладача (додає або видаляє)
- * @param {string} userId - ID користувача
- * @param {Object} teacher - Об'єкт викладача
  */
-export const toggleFavorite = async (userId, teacher) => {
+export const toggleFavorite = async (
+  userId: string,
+  teacher: Teacher
+): Promise<void> => {
   if (!teacher || !teacher.id) return;
-
   try {
     const userRef = ref(db, `users/${userId}/favorites/${teacher.id}`);
     const snapshot = await get(userRef);
-
     if (snapshot.exists()) {
       await remove(userRef); // Видаляємо, якщо вже в обраних
     } else {
@@ -89,11 +110,11 @@ export const toggleFavorite = async (userId, teacher) => {
 
 /**
  * 🔹 Перевіряє, чи викладач у списку "обраних"
- * @param {string} userId - ID користувача
- * @param {string} teacherId - ID викладача
- * @returns {Promise<boolean>}
  */
-export const isFavorite = async (userId, teacherId) => {
+export const isFavorite = async (
+  userId: string,
+  teacherId: string
+): Promise<boolean> => {
   try {
     const userRef = ref(db, `users/${userId}/favorites/${teacherId}`);
     const snapshot = await get(userRef);
@@ -105,20 +126,20 @@ export const isFavorite = async (userId, teacherId) => {
 
 /**
  * 🔹 Отримує список обраних викладачів користувача
- * @param {string} userId - ID користувача
- * @returns {Promise<Array>} Масив об'єктів викладачів
  */
-export const getFavoriteTeachers = async (userId) => {
+export const getFavoriteTeachers = async (
+  userId: string
+): Promise<Teacher[]> => {
   try {
     const snapshot = await get(ref(db, `users/${userId}/favorites`));
     if (!snapshot.exists()) return [];
-
     // Перетворюємо об'єкти у масив, фільтруючи неповні записи
-    const favoriteTeachers = Object.values(snapshot.val()).filter(teacher => teacher && teacher.id && teacher.name);
-
-    return favoriteTeachers.map(teacher => ({
+    const favoriteTeachers = Object.values(snapshot.val()).filter(
+      (teacher: any) => teacher && teacher.id && teacher.name
+    );
+    return favoriteTeachers.map((teacher: any) => ({
       ...teacher,
-      avatar_url: teacher.avatar_url || "https://via.placeholder.com/100", // ✅ Плейсхолдер
+      avatar_url: teacher.avatar_url || "https://via.placeholder.com/100",
     }));
   } catch (error) {
     return [];

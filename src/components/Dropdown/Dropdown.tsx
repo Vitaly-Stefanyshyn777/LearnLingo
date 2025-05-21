@@ -1,13 +1,28 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "./Dropdown.module.scss";
 
-const Dropdown = ({ options, selected, onSelect, label }) => {
+interface DropdownProps {
+  options: string[];
+  selected: string;
+  onSelect: (value: string) => void;
+  label: string;
+}
+
+const Dropdown: React.FC<DropdownProps> = ({
+  options,
+  selected,
+  onSelect,
+  label,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
